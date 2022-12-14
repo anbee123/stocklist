@@ -1,8 +1,6 @@
-const Home= ()=>{
+const Home =()=> {
     return (
-     <div className="home">
-         Home Page
-     </div>
-    ) 
- }
+       <h2>Welcome to my Astock page </h2>
+    )
+}
 export default Home

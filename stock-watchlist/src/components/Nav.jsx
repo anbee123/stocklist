@@ -5,7 +5,7 @@ const Nav= ()=>{
 <Link to='/'>
     <div>AStocks</div>
 </Link>
-<Link to='/stocks/:symbol'>
+<Link to='/stocks'>
     <div>Stocks</div>
 </Link>
 <Link to='/about'>

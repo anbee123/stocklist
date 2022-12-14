@@ -5,6 +5,7 @@ import About from './pages/About';
 import Stock from './pages/Stock';
 
 import './App.css';
+import StockPrices from './pages/StockPrices';
 
 function App() {
   return (
@@ -13,8 +14,9 @@ function App() {
       <Routes> 
         <Route path ='/' element={<Home />} />
         <Route path ='/about' element={<About />} />
-        <Route path ='/stocks/:symbol' element={<Stock />} />
-     
+        <Route path ='/stocks' element={<Stock />} />
+        <Route path='/stocks/:symbol' element={<StockPrices />} />
+      
       </Routes>
 
     </div>
