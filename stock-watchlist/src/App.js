@@ -1,26 +1,23 @@
-import {Route, Routes} from 'react-router-dom'
-import Nav from './components/Nav';
-import Home from './pages/Home';
-import About from './pages/About';
-import Stock from './pages/Stock';
-
-import './App.css';
-import StockPrices from './pages/StockPrices';
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
+import Stock from "./pages/Stock";
+import About from "./pages/About";
+import Nav from "./components/Nav";
+import { useState } from "react";
 
 function App() {
   return (
     <div className="App">
       <Nav />
-      <Routes> 
-        <Route path ='/' element={<Home />} />
-        <Route path ='/about' element={<About />} />
-        <Route path ='/stocks' element={<Stock />} />
-        <Route path='/stocks/:symbol' element={<StockPrices />} />
-      
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/stocks" element={<Dashboard />} />
+        <Route path="/stocks/:symbol" element={<Stock />} />
+        <Route path="/about" element={<About />} />
       </Routes>
-
     </div>
   );
 }
-
 export default App;

@@ -1,55 +1,36 @@
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-//     const stock = [
-//         { name: "Apple Inc.", symbol: "AAPL", lastPrice: 140.64, change: -0.280000000000001, high: 141.74, low: 140.35, open: 141.5 },
-//         { name: "Microsoft Corporation", symbol: "MSFT", lastPrice: 64.98, change: 0.109999999999999, high: 65.45, low: 64.76, open: 65.12 },
-//         { name: "Alphabet Inc.", symbol: "GOOGL", lastPrice: 835.14, change: -4.50999999999999, high: 844, low: 829.1, open: 842 },
-//         { name: "Facebook, Inc.", symbol: "FB", lastPrice: 140.34, change: 0.810000000000002, high: 141.0244, low: 139.76, open: 140.08 },
-//         { name: "Oracle Corporation", symbol: "ORCL", lastPrice: 44.65, change: -0.300000000000004, high: 45.09, low: 44.575, open: 44.91 },
-//         { name: "Intel Corporation", symbol: "INTL", lastPrice: 36.16, change: -0.370000000000005, high: 36.78, low: 36.125, open: 36.58 }
-//     ]
-//     const Stock = () => {
-//     return (
-//         <div>
-//         {stock.filter(stock=> stock.lastPrice >0).map(filteredStock => (
-//           <li>
-//             {filteredStock.lastPrice}
-//           </li>
-//         ))}
-//       </div>
-//     );
-//   }
-import { Link } from 'react-router-dom'
-import StockPrices from './StockPrices'
-import { Route, Routes } from 'react-router-dom'
+const Stock = (props) => {
+  const apiKey = "6bbf74c22a67669f5568519f1068335f";
+  const params = useParams();
+  const symbol = params.symbol;
+  const url = `https://financialmodelingprep.com/api/v3/quote/${symbol}?apikey=780df77fe2ae515e56a059cee313a547`;
 
-const Stock = () => {
-    const stock = [
-        { name: "Apple Inc.", symbol: "AAPL", lastPrice: 140.64, change: -0.280000000000001, high: 141.74, low: 140.35, open: 141.5 },
-        { name: "Microsoft Corporation", symbol: "MSFT", lastPrice: 64.98, change: 0.109999999999999, high: 65.45, low: 64.76, open: 65.12 },
-        { name: "Alphabet Inc.", symbol: "GOOGL", lastPrice: 835.14, change: -4.50999999999999, high: 844, low: 829.1, open: 842 },
-        { name: "Facebook, Inc.", symbol: "FB", lastPrice: 140.34, change: 0.810000000000002, high: 141.0244, low: 139.76, open: 140.08 },
-        { name: "Oracle Corporation", symbol: "ORCL", lastPrice: 44.65, change: -0.300000000000004, high: 45.09, low: 44.575, open: 44.91 },
-        { name: "Intel Corporation", symbol: "INTL", lastPrice: 36.16, change: -0.370000000000005, high: 36.78, low: 36.125, open: 36.58 }
-    ]
-    return (
-        <div className="stock">
-            {stock.map((stock) => {
-                const { name, symbol } = stock
+  const [stockData, setStockData] = useState(null);
 
-                return (
+  const getStock = async () => {
+    const res = await fetch(url);
+    const data = await res.json();
+    setStockData(data);
+  };
 
-                    <Link to={`/stocks/${symbol}`} name={name} symbol={symbol}>
-                        <h2>{name}</h2>
-                    </Link>
+  useEffect(() => {
+    getStock();
+  }, []);
 
-
-                )
-            })}
+  return (
+    <div className="stock">
+      {!stockData ? (
+        <h2>Loading...</h2>
+      ) : (
+        <div>
+          <h1>{symbol}</h1>
+          <h2>{stockData[0].price}</h2>
         </div>
-    )
-}
+      )}
+    </div>
+  );
+};
 
-
-
-
-export default Stock
+export default Stock;
